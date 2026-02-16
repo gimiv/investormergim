@@ -649,6 +649,7 @@
       line-height: 1.4;
     }
 
+    /* Buy Box Alert Styles */
     .buy-box-alert {
       background: rgba(201, 168, 76, 0.15);
       border: 1px solid var(--gold);
@@ -694,6 +695,33 @@
     .criteria-value {
       font-weight: 600;
       color: var(--text);
+    }
+
+    /* Success Modal Styles */
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(76, 175, 80, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: #4CAF50;
+    }
+
+    .success-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .success-msg {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
     }
 
     .buy-box-alert {
@@ -1077,6 +1105,33 @@
       <button class="submit-btn" onclick="submitInvestorForm()">Connect with Mergim</button>
     </div>
   </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal" style="text-align: center; max-width: 400px;">
+      <div class="modal-header" style="justify-content: flex-end; border: none; padding-bottom: 0;">
+        <button class="close-btn" onclick="closeModal('successModal')">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M20 6L9 17l-5-5" />
+        </svg>
+      </div>
+
+      <h2 class="success-title">Message Sent!</h2>
+      <p class="success-msg">
+        Thanks for reaching out. I've received your criteria and details. I'll review them and get back to you shortly
+        if it's a good fit.
+      </p>
+
+      <button class="submit-btn" onclick="closeModal('successModal')">Close</button>
+    </div>
+  </div>
   <script>
     (function () {
       const canvas = document.getElementById('bg-canvas');
@@ -1287,21 +1342,63 @@
       }
     }
 
-    // Submit Form
+    // Submit Form (AJAX to Formspree)
     function submitHotelForm() {
-      const name = document.getElementById('hotelName').value;
-      const email = document.getElementById('hotelEmail').value;
-      const phone = document.getElementById('hotelPhone').value;
-      const propName = document.getElementById('propName').value;
-      const propUrl = document.getElementById('propUrl').value;
-      const noi = document.getElementById('propNOI').value;
-      const price = document.getElementById('propPrice').value;
-      const capRate = document.getElementById('capRateDisplay').textContent;
+      const submitBtn = document.getElementById('hotelSubmitBtn');
 
-      const subject = `Hotel for Sale: ${propName}`;
-      const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0A%0D%0AHotel: ${propName}%0D%0AURL: ${propUrl}%0D%0A%0D%0ANOI: $${noi}%0D%0AAsking Price: $${price}%0D%0AEst. Cap Rate: ${capRate}`;
+      // Basic Data Gathering
+      const data = {
+        formType: 'Hotel Intake',
+        name: document.getElementById('hotelName').value,
+        email: document.getElementById('hotelEmail').value,
+        phone: document.getElementById('hotelPhone').value,
+        hotelName: document.getElementById('propName').value,
+        url: document.getElementById('propUrl').value,
+        noi: document.getElementById('propNOI').value,
+        price: document.getElementById('propPrice').value,
+        capRate: document.getElementById('capRateDisplay').textContent
+      };
 
-      window.location.href = `mailto:mergim@pandorahospitality.com?subject=${subject}&body=${body}`;
+      // Validation (Double Check)
+      if (!data.name || !data.email) {
+        alert('Please fill in your name and email.');
+        return;
+      }
+
+      // Disable button to prevent double submit
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      // CHANGE THIS TO YOUR FORMSPREE ID
+      // Example: https://formspree.io/f/xyzyqwer
+      const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID_HERE';
+
+      fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          if (response.ok) {
+            // Success
+            closeModal('hotelModal');
+            openModal('successModal');
+            // Reset form (optional)
+            // document.getElementById('hotelName').value = '';
+          } else {
+            // Error
+            alert('Oops! There was a problem submitting your form. Please try again or email me directly.');
+          }
+        })
+        .catch(error => {
+          alert('Oops! There was a problem submitting your form. Please try again or email me directly.');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Hotel Details';
+        });
     }
 
     // Investor Form Logic
@@ -1368,7 +1465,6 @@
       const name = document.getElementById('invName').value;
       const email = document.getElementById('invEmail').value;
       const amount = document.getElementById('invAmount').value;
-
       const recElement = document.getElementById('recTitle');
       const recommendation = recElement ? recElement.textContent : 'Not determined';
 
@@ -1376,10 +1472,50 @@
       const risk = investorAnswers.risk ? (investorAnswers.risk === 'lending' ? 'Conservative' : 'Aggressive') : 'Unanswered';
       const tax = investorAnswers.tax ? (investorAnswers.tax === 'lending' ? 'No' : 'Yes') : 'Unanswered';
 
-      const subject = `Investor Inquiry: ${name}`;
-      const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0AInvestment Capacity: ${amount}%0D%0A%0D%0APreferences:%0D%0A- Goal: ${goal}%0D%0A- Risk: ${risk}%0D%0A- Tax Benefits: ${tax}%0D%0A%0D%0ASystem Rec: ${recommendation}`;
+      const data = {
+        formType: 'Investor Inquiry',
+        name,
+        email,
+        amount,
+        recommendation,
+        goal,
+        risk,
+        tax
+      };
 
-      window.location.href = `mailto:mergim@pandorahospitality.com?subject=${subject}&body=${body}`;
+      if (!name || !email) {
+        alert('Please fill in your name and email.');
+        return;
+      }
+
+      const btn = document.querySelector('#investorModal .submit-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      // SAME ENDPOINT
+      const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID_HERE';
+
+      fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          if (response.ok) {
+            closeModal('investorModal');
+            openModal('successModal');
+          } else {
+            alert('Oops! There was a problem submitting your form. Please try again.');
+          }
+        })
+        .catch(error => {
+          alert('Oops! There was a problem submitting your form. Please try again.');
+        })
+        .finally(() => {
+          btn.disabled = false;
+          btn.textContent = originalText;
+        });
     }
   </script>
 </body>
