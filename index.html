@@ -648,6 +648,100 @@
       color: var(--text-muted);
       line-height: 1.4;
     }
+
+    .buy-box-alert {
+      background: rgba(201, 168, 76, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      margin-top: -10px;
+      text-align: center;
+    }
+
+    .buy-box-title {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .buy-box-criteria {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .criteria-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .criteria-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+
+    .criteria-value {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .buy-box-alert {
+      background: rgba(201, 168, 76, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      margin-top: -10px;
+      text-align: center;
+    }
+
+    .buy-box-title {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .buy-box-criteria {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .criteria-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .criteria-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+
+    .criteria-value {
+      font-weight: 600;
+      color: var(--text);
+    }
   </style>
 </head>
 
@@ -832,72 +926,99 @@
   <div class="modal-overlay" id="hotelModal">
     <div class="modal">
       <div class="modal-header">
-        <div>
-          <h2 class="modal-title">Sell Your Hotel</h2>
-          <div style="font-size: 0.9rem; color: var(--accent-light); margin-top: 4px;">
-            <strong>Buy Box:</strong> NOI $250k+ & 15%+ Cap Rate
+        <h2 class="modal-title">Sell Your Hotel</h2>
+      </div>
+
+      <div class="buy-box-alert">
+        <div class="buy-box-title">Strict Investment Criteria</div>
+        <div class="buy-box-criteria">
+          <div class="criteria-item">
+            <span class="criteria-label">Min NOI</span>
+            <span class="criteria-value">$250,000+</span>
+          </div>
+          <div class="criteria-item">
+            <span class="criteria-label">Min Cap Rate</span>
+            <span class="criteria-value">15%+</span>
           </div>
         </div>
-        <button class="close-btn" onclick="closeModal('hotelModal')">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6L6 18M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Full Name</label>
-        <input type="text" class="form-input" id="hotelName" placeholder="John Doe">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="form-input" id="hotelEmail" placeholder="john@example.com">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Phone Number</label>
-        <input type="tel" class="form-input" id="hotelPhone" placeholder="(555) 123-4567">
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="form-group">
-        <label class="form-label">Hotel Name</label>
-        <input type="text" class="form-input" id="propName" placeholder="Grand Budapest Hotel">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Website URL</label>
-        <input type="url" class="form-input" id="propUrl" placeholder="https://">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Net Operating Income (NOI)</label>
-        <input type="number" class="form-input" id="propNOI" placeholder="e.g. 250000" oninput="calculateCapRate()">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Asking Price</label>
-        <input type="number" class="form-input" id="propPrice" placeholder="e.g. 1600000" oninput="calculateCapRate()">
-      </div>
-
-      <div class="cap-rate-box">
-        <div class="cap-rate-label">Estimated Cap Rate</div>
-        <div class="cap-rate-value" id="capRateDisplay">--%</div>
-        <div id="capRateStatus"></div>
-        <p class="cap-rate-explainer">
-          <strong>How it's calculated:</strong><br>
-          (Net Operating Income / Asking Price) × 100
-        </p>
-      </div>
-
-      <button class="submit-btn" id="hotelSubmitBtn" onclick="submitHotelForm()" disabled
-        style="opacity: 0.5; cursor: not-allowed;">Submit Hotel Details</button>
-      <div id="buyBoxError" style="color: #ff6b6b; font-size: 0.85rem; margin-top: 10px; display: none;">
-        Property does not meet Buy Box criteria (Min NOI $250k, Min 15% Cap).
       </div>
     </div>
+    <button class="close-btn" onclick="closeModal('hotelModal')">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="buy-box-alert">
+    <div class="buy-box-title">Strict Investment Criteria</div>
+    <div class="buy-box-criteria">
+      <div class="criteria-item">
+        <span class="criteria-label">Min NOI</span>
+        <span class="criteria-value">$250,000+</span>
+      </div>
+      <div class="criteria-item">
+        <span class="criteria-label">Min Cap Rate</span>
+        <span class="criteria-value">15%+</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Full Name</label>
+    <input type="text" class="form-input" id="hotelName" placeholder="John Doe">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Email Address</label>
+    <input type="email" class="form-input" id="hotelEmail" placeholder="john@example.com">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Phone Number</label>
+    <input type="tel" class="form-input" id="hotelPhone" placeholder="(555) 123-4567">
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="form-group">
+    <label class="form-label">Hotel Name</label>
+    <input type="text" class="form-input" id="propName" placeholder="Grand Budapest Hotel">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Website URL</label>
+    <input type="url" class="form-input" id="propUrl" placeholder="https://">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Net Operating Income (NOI)</label>
+    <input type="text" class="form-input" id="propNOI" placeholder="e.g. 250,000"
+      oninput="formatCurrency(this); calculateCapRate()">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Asking Price</label>
+    <input type="text" class="form-input" id="propPrice" placeholder="e.g. 1,600,000"
+      oninput="formatCurrency(this); calculateCapRate()">
+  </div>
+
+  <div class="cap-rate-box">
+    <div class="cap-rate-label">Estimated Cap Rate</div>
+    <div class="cap-rate-value" id="capRateDisplay">--%</div>
+    <div id="capRateStatus"></div>
+    <p class="cap-rate-explainer">
+      <strong>How it's calculated:</strong><br>
+      (Net Operating Income / Asking Price) × 100
+    </p>
+  </div>
+
+  <button class="submit-btn" id="hotelSubmitBtn" onclick="submitHotelForm()" disabled
+    style="opacity: 0.5; cursor: not-allowed;">Submit Hotel Details</button>
+  <div id="buyBoxError" style="color: #ff6b6b; font-size: 0.85rem; margin-top: 10px; display: none;">
+    Property does not meet Buy Box criteria (Min NOI $250k, Min 15% Cap).
+  </div>
+  </div>
   </div>
   <!-- Investor Intake Modal -->
   <div class="modal-overlay" id="investorModal">
@@ -1103,6 +1224,27 @@
       }
     });
 
+    // Format Currency Input (Add Commas)
+    function formatCurrency(input) {
+      // Remove any non-numeric characters (except for maybe a decimal point if needed, but simple integers usually fine for this context)
+      // For simplicity, let's allow integers only for now, or handle decimals if user types them.
+      // Let's strip everything that is not a digit or decimal.
+      let value = input.value.replace(/,/g, '');
+
+      // If empty or not a number, return
+      if (!value || isNaN(value)) return;
+
+      // Format with commas
+      // We can use Number(value).toLocaleString() but we need to handle the cursor position ideally.
+      // A simple implementation:
+      const formatted = Number(value).toLocaleString();
+
+      // Only update if it changed to avoid cursor jumping issue slightly (though it will still jump to end in simple impl)
+      if (input.value !== formatted) {
+        input.value = formatted;
+      }
+    }
+
     // Cap Rate Calculation & Buy Box Validation
     function calculateCapRate() {
       const noiInput = document.getElementById('propNOI');
@@ -1112,8 +1254,9 @@
       const submitBtn = document.getElementById('hotelSubmitBtn');
       const errorMsg = document.getElementById('buyBoxError');
 
-      const noi = parseFloat(noiInput.value);
-      const price = parseFloat(priceInput.value);
+      // Remove commas before parsing
+      const noi = parseFloat(noiInput.value.replace(/,/g, ''));
+      const price = parseFloat(priceInput.value.replace(/,/g, ''));
 
       let isValid = false;
 
