@@ -927,6 +927,11 @@
     <div class="modal">
       <div class="modal-header">
         <h2 class="modal-title">Sell Your Hotel</h2>
+        <button class="close-btn" onclick="closeModal('hotelModal')">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
       <div class="buy-box-alert">
@@ -942,83 +947,62 @@
           </div>
         </div>
       </div>
-    </div>
-    <button class="close-btn" onclick="closeModal('hotelModal')">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M18 6L6 18M6 6l12 12" />
-      </svg>
-    </button>
-  </div>
 
-  <div class="buy-box-alert">
-    <div class="buy-box-title">Strict Investment Criteria</div>
-    <div class="buy-box-criteria">
-      <div class="criteria-item">
-        <span class="criteria-label">Min NOI</span>
-        <span class="criteria-value">$250,000+</span>
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" id="hotelName" placeholder="John Doe">
       </div>
-      <div class="criteria-item">
-        <span class="criteria-label">Min Cap Rate</span>
-        <span class="criteria-value">15%+</span>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="hotelEmail" placeholder="john@example.com">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" id="hotelPhone" placeholder="(555) 123-4567">
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="form-group">
+        <label class="form-label">Hotel Name</label>
+        <input type="text" class="form-input" id="propName" placeholder="Grand Budapest Hotel">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Website URL</label>
+        <input type="url" class="form-input" id="propUrl" placeholder="https://">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Net Operating Income (NOI)</label>
+        <input type="text" class="form-input" id="propNOI" placeholder="e.g. 250,000"
+          oninput="formatCurrency(this); calculateCapRate()">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Asking Price</label>
+        <input type="text" class="form-input" id="propPrice" placeholder="e.g. 1,600,000"
+          oninput="formatCurrency(this); calculateCapRate()">
+      </div>
+
+      <div class="cap-rate-box">
+        <div class="cap-rate-label">Estimated Cap Rate</div>
+        <div class="cap-rate-value" id="capRateDisplay">--%</div>
+        <div id="capRateStatus"></div>
+        <p class="cap-rate-explainer">
+          <strong>How it's calculated:</strong><br>
+          (Net Operating Income / Asking Price) × 100
+        </p>
+      </div>
+
+      <button class="submit-btn" id="hotelSubmitBtn" onclick="submitHotelForm()" disabled
+        style="opacity: 0.5; cursor: not-allowed;">Submit Hotel Details</button>
+      <div id="buyBoxError" style="color: #ff6b6b; font-size: 0.85rem; margin-top: 10px; display: none;">
+        Property does not meet Buy Box criteria (Min NOI $250k, Min 15% Cap).
       </div>
     </div>
-  </div>
-
-  <div class="form-group">
-    <label class="form-label">Full Name</label>
-    <input type="text" class="form-input" id="hotelName" placeholder="John Doe">
-  </div>
-
-  <div class="form-group">
-    <label class="form-label">Email Address</label>
-    <input type="email" class="form-input" id="hotelEmail" placeholder="john@example.com">
-  </div>
-
-  <div class="form-group">
-    <label class="form-label">Phone Number</label>
-    <input type="tel" class="form-input" id="hotelPhone" placeholder="(555) 123-4567">
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="form-group">
-    <label class="form-label">Hotel Name</label>
-    <input type="text" class="form-input" id="propName" placeholder="Grand Budapest Hotel">
-  </div>
-
-  <div class="form-group">
-    <label class="form-label">Website URL</label>
-    <input type="url" class="form-input" id="propUrl" placeholder="https://">
-  </div>
-
-  <div class="form-group">
-    <label class="form-label">Net Operating Income (NOI)</label>
-    <input type="text" class="form-input" id="propNOI" placeholder="e.g. 250,000"
-      oninput="formatCurrency(this); calculateCapRate()">
-  </div>
-
-  <div class="form-group">
-    <label class="form-label">Asking Price</label>
-    <input type="text" class="form-input" id="propPrice" placeholder="e.g. 1,600,000"
-      oninput="formatCurrency(this); calculateCapRate()">
-  </div>
-
-  <div class="cap-rate-box">
-    <div class="cap-rate-label">Estimated Cap Rate</div>
-    <div class="cap-rate-value" id="capRateDisplay">--%</div>
-    <div id="capRateStatus"></div>
-    <p class="cap-rate-explainer">
-      <strong>How it's calculated:</strong><br>
-      (Net Operating Income / Asking Price) × 100
-    </p>
-  </div>
-
-  <button class="submit-btn" id="hotelSubmitBtn" onclick="submitHotelForm()" disabled
-    style="opacity: 0.5; cursor: not-allowed;">Submit Hotel Details</button>
-  <div id="buyBoxError" style="color: #ff6b6b; font-size: 0.85rem; margin-top: 10px; display: none;">
-    Property does not meet Buy Box criteria (Min NOI $250k, Min 15% Cap).
-  </div>
-  </div>
   </div>
   <!-- Investor Intake Modal -->
   <div class="modal-overlay" id="investorModal">
