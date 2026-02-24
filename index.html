@@ -355,11 +355,91 @@
     }
 
     .link-icon.purple {
-      background: rgba(140, 100, 200, 0.15);
-      color: #b48ade;
+      background: rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
     }
 
     .link-icon.green {
+      background: rgba(80, 180, 100, 0.15);
+      color: #6dd690;
+    }
+
+    /* 3-Stack Contact Container */
+    .contact-stack {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+      opacity: 0;
+      animation: fadeUp 0.6s ease-out forwards;
+      animation-delay: 1.1s;
+    }
+
+    .contact-action {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 8px;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.35s ease;
+      overflow: hidden;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .contact-action::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(58, 143, 183, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .contact-action:hover {
+      background: var(--card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-action:hover::before {
+      opacity: 1;
+    }
+
+    .contact-action:active {
+      transform: translateY(0);
+      transition-duration: 0.1s;
+    }
+
+    .contact-action .action-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2px;
+    }
+
+    .contact-action .action-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .contact-action .action-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    #hotelModal,
+    #investorModal {
       background: rgba(80, 180, 100, 0.15);
       color: #6dd690;
     }
@@ -898,8 +978,8 @@
 
       <!-- Stayfull PMS Link -->
       <a href="https://www.stayfull.io" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon" style="background: transparent; color: unset;">
-          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <div class="link-icon" style="background: rgba(99, 102, 241, 0.15);">
+          <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <defs>
               <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#4a8df8" />
@@ -960,36 +1040,39 @@
           </svg></span>
       </button>
 
-      <a href="sms:3126175804" class="link-card">
-        <div class="link-icon purple">
-          <svg viewBox="0 0 24 24">
-            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
-          </svg>
-        </div>
-        <div class="link-text">
-          <div class="link-title">Text Me</div>
-          <div class="link-sub">iMessage · (312) 617-5804</div>
-        </div>
-        <span class="link-arrow"><svg viewBox="0 0 24 24">
-            <path d="M9 18l6-6-6-6" />
-          </svg></span>
-      </a>
+      <div class="contact-stack">
+        <!-- Text Me -->
+        <a href="sms:3126175804" class="contact-action">
+          <div class="action-icon" style="background: rgba(139, 92, 246, 0.15); color: #a78bfa;">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
+            </svg>
+          </div>
+          <div class="action-label">Text</div>
+        </a>
 
-      <a href="https://wa.me/13126175804" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon green">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-          </svg>
-        </div>
-        <div class="link-text">
-          <div class="link-title">WhatsApp Me</div>
-          <div class="link-sub">Chat on WhatsApp</div>
-        </div>
-        <span class="link-arrow"><svg viewBox="0 0 24 24">
-            <path d="M9 18l6-6-6-6" />
-          </svg></span>
-      </a>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/13126175804" target="_blank" rel="noopener" class="contact-action">
+          <div class="action-icon" style="background: rgba(80, 180, 100, 0.15); color: #6dd690;">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+          </div>
+          <div class="action-label">WhatsApp</div>
+        </a>
+
+        <!-- Telegram -->
+        <a href="https://t.me/InvestorMergim" target="_blank" rel="noopener" class="contact-action">
+          <div class="action-icon" style="background: rgba(58, 143, 183, 0.15); color: #3b82f6;">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+            </svg>
+          </div>
+          <div class="action-label">Telegram</div>
+        </a>
+      </div>
 
       <a href="data:text/vcard;base64,QkVHSU46VkNBUkQNClZFUlNJT046My4wDQpQUk9ESUQ6LS8vQXBwbGUgSW5jLi8vaVBob25lIE9TIDI2LjIuMS8vRU4NCk46S2FjaWphO01lcmdpbTs7Ow0KRk46TWVyZ2ltIEthY2lqYQ0KRU1BSUw7dHlwZT1JTlRFUk5FVDt0eXBlPUhPTUU7dHlwZT1wcmVmOm1lcmdpbUBnbWFpbC5jb20NClRFTDt0eXBlPUlQSE9ORTt0eXBlPUNFTEw7dHlwZT1WT0lDRTt0eXBlPXByZWY6KDMxMikgNjE3LTU4MDQNClgtU09DSUFMUFJPRklMRTt0eXBlPXR3aXR0ZXI6aHR0cDovL3R3aXR0ZXIuY29tL2ludmVzdG9ybWVyZ2ltDQpYLVNPQ0lBTFBST0ZJTEU7dHlwZT1mYWNlYm9vazpodHRwOi8vZmFjZWJvb2suY29tL2ludmVzdG9ybWVyZ2ltDQpYLVNPQ0lBTFBST0ZJTEU7dHlwZT1saW5rZWRpbjpodHRwOi8vd3d3LmxpbmtlZGluLmNvbS9pbi9pbnZlc3Rvcm1lcmdpbQ0KaXRlbTEuVVJMO3R5cGU9cHJlZjp3d3cuaW52ZXN0b3JtZXJnaW0uY29tDQppdGVtMS5YLUFCTGFiZWw6XyQhPEhvbWVQYWdlPiEkXw0KRU5EOlZDQVJEDQo="
         download="Mergim_Kacija.vcf" class="link-card">
