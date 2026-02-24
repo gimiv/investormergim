@@ -1093,6 +1093,11 @@
       </div>
 
       <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" id="invPhone" placeholder="(555) 123-4567">
+      </div>
+
+      <div class="form-group">
         <label class="form-label">Investment Capacity</label>
         <select class="form-input" id="invAmount">
           <option value="$50k - $100k">$50k - $100k</option>
@@ -1502,6 +1507,7 @@
     function submitInvestorForm() {
       const name = document.getElementById('invName').value;
       const email = document.getElementById('invEmail').value;
+      const phone = document.getElementById('invPhone').value;
       const amount = document.getElementById('invAmount').value;
       const recElement = document.getElementById('recTitle');
       const recommendation = recElement ? recElement.textContent : 'Not determined';
@@ -1514,6 +1520,7 @@
         formType: 'Investor Inquiry',
         name,
         email,
+        phone,
         amount,
         recommendation,
         goal,
