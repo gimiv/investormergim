@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Portal | Mergim Kacija</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Outfit:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep: #0a1628;
+            --surface: #111d33;
+            --card: rgba(255, 255, 255, 0.04);
+            --card-hover: rgba(255, 255, 255, 0.08);
+            --accent: #3a8fb7;
+            --accent-light: #5bb8de;
+            --text: #e8edf4;
+            --text-muted: #8a99b4;
+            --gold: #c9a84c;
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--deep);
+            color: var(--text);
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(58, 143, 183, 0.15), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(201, 168, 76, 0.05), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .nav-top {
+            position: absolute;
+            top: 32px;
+            left: 32px;
+            z-index: 10;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 1;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 48px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(201, 168, 76, 0.15);
+            color: var(--gold);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .logo-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .title {
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .form-input::placeholder {
+            color: rgba(138, 153, 180, 0.4);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border: none;
+            border-radius: 14px;
+            padding: 16px;
+            color: #fff;
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(58, 143, 183, 0.3);
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(58, 143, 183, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 24px;
+            display: none;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-5px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 24px;
+            }
+
+            .nav-top {
+                top: 24px;
+                left: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-top">
+        <a href="index.html" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Return Home
+        </a>
+    </div>
+
+    <div class="login-container">
+        <div class="header">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+            </div>
+            <h1 class="title">Partner Portal</h1>
+            <p class="subtitle">Secure Document Access</p>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label class="form-label" for="partnerId">Partner ID / Email</label>
+                <input type="text" id="partnerId" class="form-input" placeholder="e.g. chase-01" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="accessCode">Access Code</label>
+                <input type="password" id="accessCode" class="form-input" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Sign In</button>
+
+            <div class="error-message" id="errorMsg">
+                Invalid Partner ID or Access Code. Please contact administration if you require access.
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        Authorized Personnel Only · &copy; 2026 Pandora Hospitality
+    </div>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+
+            const btn = document.getElementById('submitBtn');
+            const errorMsg = document.getElementById('errorMsg');
+
+            // Hide error if previously shown
+            errorMsg.style.display = 'none';
+
+            // Loading state
+            const originalText = btn.textContent;
+            btn.textContent = 'Authenticating...';
+            btn.style.opacity = '0.8';
+            btn.disabled = true;
+
+            // Simulate network request delay before failing
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.opacity = '1';
+                btn.disabled = false;
+
+                // Always fail for the visual demo
+                errorMsg.style.display = 'block';
+
+                // Remove and re-add animation to ensure it plays again if they retry
+                errorMsg.style.animation = 'none';
+                errorMsg.offsetHeight; /* trigger reflow */
+                errorMsg.style.animation = null;
+            }, 1200);
+        }
+    </script>
+</body>
+
+</html>
